@@ -33,4 +33,24 @@ spring:
         locator:
           enabled: true
       routes:
-        - # TODO : Routing 정보 입력
+        - id: auth-resource-service # NOTE : OAUTH 요청
+          uri: lb://auth-resource-service
+          predicates:
+            - Path=/auth-resource-service/**
+          filters:
+            - RewritePath=/auth-resource-service/(?<path>.*), /$\{path}
+
+        - id: user-service # NOTE : silent-refresh
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/auth/silent-refresh
+          filters:
+            - RewritePath=/user-service/(?<path>.*), /$\{path}
+
+        - id: user-service # NOTE : 그 외 모든 User-Service 요청 ( login, register 는 게이트웨이 안거침 )
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user-service/(?<path>.*), /$\{path}
+            - name: AuthorizationFilter
