@@ -58,7 +58,7 @@ spring:
         - id: user-service # NOTE : 그 외 모든 User-Service 요청 ( login, register 는 게이트웨이 안거침 )
           uri: lb://user-service
           predicates:
-            - Path=/user/**
+            - Path=/user-service/**
           filters:
             - RewritePath=/user-service/(?<path>.*), /$\{path}
             - name: AuthorizationFilter
