@@ -55,7 +55,7 @@ class AuthorizationFilterTest {
     void unauthorized_request_with_INVALID_TOKEN() {
         exchange = MockServerWebExchange.from(
                 MockServerHttpRequest.post("/user-service/test")
-                        .cookie(new HttpCookie("ACCESS_TOKEN", INVALID_TOKEN))
+                        .cookie(new HttpCookie("access_token", INVALID_TOKEN))
                         .build()
         );
 
@@ -69,7 +69,7 @@ class AuthorizationFilterTest {
     void unauthorized_request_with_EXPRIED_TOKEN() {
         exchange = MockServerWebExchange.from(
                 MockServerHttpRequest.post("/user-service/test")
-                        .cookie(new HttpCookie("ACCESS_TOKEN", EXPIRED_TOKEN))
+                        .cookie(new HttpCookie("access_token", EXPIRED_TOKEN))
                         .build()
         );
 
@@ -83,7 +83,7 @@ class AuthorizationFilterTest {
     void authorized_request_with_VALID_TOKEN() {
         exchange = MockServerWebExchange.from(
                 MockServerHttpRequest.post("/user-service/test")
-                        .cookie(new HttpCookie("ACCESS_TOKEN", VALID_TOKEN))
+                        .cookie(new HttpCookie("access_token", VALID_TOKEN))
                         .build()
         );
 
