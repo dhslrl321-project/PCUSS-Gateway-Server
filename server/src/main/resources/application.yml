@@ -68,4 +68,4 @@ spring:
           predicates:
             - Path=/student-service/**
           filters:
-              - RewritePath=/student-service/(?<path>.*), /$\{path}
+            - RewritePath=/student-service/(?<path>.*), /$\{path}
