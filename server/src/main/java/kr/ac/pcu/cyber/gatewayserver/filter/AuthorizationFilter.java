@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import java.util.Locale;
 
 @Component
 public class AuthorizationFilter extends AbstractGatewayFilterFactory<AuthorizationFilter.Config> {
@@ -28,7 +29,7 @@ public class AuthorizationFilter extends AbstractGatewayFilterFactory<Authorizat
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
 
-            HttpCookie cookie = request.getCookies().get(String.valueOf(TokenType.ACCESS_TOKEN)).get(0);
+            HttpCookie cookie = request.getCookies().get(String.valueOf(TokenType.ACCESS_TOKEN).toLowerCase()).get(0);
 
             try {
                 jwtUtil.validateToken(cookie.getValue());
